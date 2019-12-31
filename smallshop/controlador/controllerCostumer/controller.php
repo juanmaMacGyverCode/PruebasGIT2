@@ -162,7 +162,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["name"])) {
             $errorName = "<p class=\"text-danger\">Campo requerido</p>";
         } else {
-            if (strlen($_POST["name"]) > 20) {
+            if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
                 $errorName = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
@@ -180,7 +180,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["surname"])) {
             $errorSurname = "<p class=\"text-danger\">Campo requerido</p>";
         } else {
-            if (strlen($_POST["surname"]) > 20) {
+            if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
                 $errorSurname = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {
@@ -309,7 +309,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["name"])) {
             $errorName = "<p class=\"text-danger\">Campo requerido</p>";
         } else {
-            if (strlen($_POST["name"]) > 20) {
+            if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
                 $errorName = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
@@ -327,7 +327,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["surname"])) {
             $errorSurname = "<p class=\"text-danger\">Campo requerido</p>";
         } else {
-            if (strlen($_POST["surname"]) > 20) {
+            if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
                 $errorSurname = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {

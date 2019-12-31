@@ -40,8 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["username"])) {
             $errorUsername = "Campo requerido.";
         } else {
-            if (strlen($_POST["username"]) > 20) {
-                $errorUsername = "<p class=\"text-danger\">Max 20 characters</p>";
+            if (strlen($_POST["username"]) > 20 || strlen($_POST["username"]) < 4) {
+                $errorUsername = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["username"])) {
                     $errorUsername = "<p class=\"text-danger\">Formato no correcto. Solo números y letras sin espacios</p>";
@@ -62,8 +62,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["password"])) {
             $errorPassword = "Campo requerido.";
         } else {
-            if (strlen($_POST["password"]) > 20) {
-                $errorPassword = "<p class=\"text-danger\">Max 20 characters</p>";
+            if (strlen($_POST["password"]) > 20 || strlen($_POST["password"]) < 4) {
+                $errorPassword = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["password"])) {
                     $errorPassword = "Formato no correcto. Solo números y letras sin espacios.";
@@ -80,8 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["fullname"])) {
             $errorFullname = "Campo requerido.";
         } else {
-            if (strlen(trim($_POST["fullname"])) > 40) {
-                $errorFullname = "<p class=\"text-danger\">Max 40 characters</p>";
+            if (strlen(trim($_POST["fullname"])) > 40 || strlen($_POST["fullname"]) < 4) {
+                $errorFullname = "<p class=\"text-danger\">Max 40 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", trim($_POST["fullname"]))) {
                     $errorFullname = "Formato no correcto. Solo letras y espacios si los hubiera.";
@@ -124,7 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["usernameLogin"])) {
             $errorUsername = "Campo requerido.";
         } else {
-            if (strlen($_POST["usernameLogin"]) > 20) {
+            if (strlen($_POST["usernameLogin"]) > 20 || strlen($_POST["usernameLogin"]) < 4) {
                 $errorUsername = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["usernameLogin"])) {
@@ -142,7 +142,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if (empty($_POST["passwordLogin"])) {
             $errorPassword = "Campo requerido.";
         } else {
-            if (strlen($_POST["passwordLogin"]) > 20) {
+            if (strlen($_POST["passwordLogin"]) > 20 || strlen($_POST["passwordLogin"]) < 4) {
                 $errorPassword = "<p class=\"text-danger\">Max 20 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["passwordLogin"])) {
