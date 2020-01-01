@@ -1,8 +1,8 @@
 <?php
 
 include("..\\database\\databaseOperations.php");
-include("..\\modelo\\user.php");
-include("..\\controlador\\commomFunctions.php");
+include("..\\models\\user.php");
+include("..\\controller\\commomFunctions.php");
 include("functions.php");
 session_name("sesionUsuario");
 session_start();

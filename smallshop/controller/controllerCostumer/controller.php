@@ -1,6 +1,6 @@
 <?php
 
-include("..\\modelo\\costumer.php");
+include("..\\models\\costumer.php");
 include("functions.php");
 
 $showBoxWarning = "";

@@ -12,8 +12,8 @@
 </head>
 
 <body>
-    <?php include("..\\controlador\\controladorIndex\\controller.php"); ?>
-    <?php include("..\\controlador\\controllerCostumer\\controller.php"); ?>
+    <?php include("..\\controller\\controllerIndex\\controller.php"); ?>
+    <?php include("..\\controller\\controllerCostumer\\controller.php"); ?>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="">smallShop <i class='fas fa-building' style='font-size:1em;color:red'></i></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
