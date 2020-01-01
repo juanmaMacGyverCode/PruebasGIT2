@@ -18,7 +18,7 @@ final class TestEncrypt extends TestCase
 
     public function testUpdateCustomersTrue3(): void
     {
-        $this->assertNotFalse(testUpdateCustomers("".null, "hello", null, true));
+        $this->assertNotFalse(testUpdateCustomers("a", "hello", null, true));
     }
 
     public function testUpdateCustomersFalse1(): void
@@ -35,16 +35,19 @@ final class TestEncrypt extends TestCase
     {
         $this->assertFalse(testUpdateCustomers(null, null, null, true));
     }
+
 }
 
 function testUpdateCustomers($name, $surname, $fileUpload, $checkboxDeleteImage)
 {
     signinUser("test", "test", "test", "test");
     $allUsers = createAllUsers();
-    createNewCostumer($name, $surname, $fileUpload, $idUser);
-    $allCustomers = listAllCostumers();
+    createNewCostumer($name, $surname, $fileUpload, $allUsers[count($allUsers) - 1]->getIdUser());
+    $allCustomers = listAllCustomers();
     $success = updateCustomer($allCustomers[count($allCustomers) - 1]->getIdCostumer(), $name, $surname, $fileUpload, $checkboxDeleteImage, $allUsers[count($allUsers) - 1]->getIdUser());
-    deleteCustomer($allCustomers[count($allCustomers) - 1]->getIdCostumer());
+    if ($success) {
+        deleteCustomer($allCustomers[count($allCustomers) - 1]->getIdCostumer());
+    } 
     deleteUser($allUsers[count($allUsers) - 1]->getIdUser());
     return $success;
 }
@@ -126,7 +129,7 @@ function createAllUsers()
     return $allUsers;
 }
 
-function listAllCostumers()
+function listAllCustomers()
 {
     $allCostumers = array();
 
@@ -352,6 +355,7 @@ class Costumer
     {
         $this->idUserLastModify = $idUserLastModify;
     }
+    
 
     //Other functions
     public function dataSheetCostumer($allUsers)
@@ -384,27 +388,6 @@ class Costumer
             $image = "<div class=\"col-md-4\"><i class='fas fa-user' style='font-size:15em;color:red'></i></div>";
         }
 
-        /*$dataSheet =
-            "<div class=\"card mb-3 mt-3 mx-auto w-100 text-left\">
-              <div class=\"row no-gutters\">
-                <div class=\"col-md-4\">
-                  <img src=" . $image . " class=\"card-img\" alt=\"File Not Found\">
-                </div>
-                <div class=\"col-md-8\">
-                  <div class=\"card-header\">
-                    <h5 class=\"card-title\">Id: " . $this->idCostumer . "</h5>
-                  </div>
-                  <div class=\"card-body\">
-                    <h5 class=\"card-title\">Surname: " . decrypt($this->surname, "1235@") . "</h5>
-                    <h5 class=\"card-title\">Name: " . decrypt($this->nameCostumer, "1235@") . "</h5>
-                    <hr>
-                    <p class=\"card-text\"><span class=\"font-weight-bold\">ID user creator:</span> " . $this->idUserCreator . ". <span class=\"font-weight-bold\">Username:</span> " . decrypt($userCreator->getUsername(), "1235@") . "</p>
-                    " . $cardLastModify . "
-                  </div>
-                </div>
-              </div>
-            </div>";*/
-
         $dataSheet =
             "<div class=\"card mb-3 mt-3 mx-auto w-100 text-left\">
               <div class=\"row no-gutters\">
@@ -425,5 +408,67 @@ class Costumer
             </div>";
 
         return $dataSheet;
+    }
+}
+
+class User
+{
+    private $idUser;
+    private $username;
+    private $password;
+    private $fullName;
+    private $email;
+
+    public function __construct($idUser, $username, $password, $fullName, $email)
+    {
+        $this->idUser = $idUser;
+        $this->username = $username;
+        $this->password = $password;
+        $this->fullName = $fullName;
+        $this->email = $email;
+    }
+
+    /* Getters */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+    public function getUsername()
+    {
+        return $this->username;
+    }
+    public function getPassword()
+    {
+        return $this->password;
+    }
+    public function getFullName()
+    {
+        return $this->fullName;
+    }
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /* Setters */
+    public function setIdUser($idUser)
+    {
+        $this->idUser = $idUser;
+    }
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+    public function setFullName($fullName)
+    {
+        $this->fullName = $fullName;
+    }
+    public function setEmail($email)
+    {
+        $this->email = $email;
     }
 }

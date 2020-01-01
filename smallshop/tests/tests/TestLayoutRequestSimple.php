@@ -50,7 +50,7 @@ final class TestEncrypt extends TestCase
                 <p class=\"mb-0\">Choose an option</p>
                 <div class=\"list-group mt-3\">
                     <form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">
-                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCostumers\">List all costumers</button>
+                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCustomers\">List all costumers</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"getCostumerInformation\">Get full costumer information</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"createCostumer\">Create a new costumer</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"updateCostumer\">Update an existing costumer</button>
@@ -133,7 +133,7 @@ final class TestEncrypt extends TestCase
                 <p class=\"mb-0\">Choose an option</p>
                 <div class=\"list-group mt-3\">
                     <form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">
-                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCostumers\">List all costumers</button>
+                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCustomers\">List all costumers</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"getCostumerInformation\">Get full costumer information</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"createCostumer\">Create a new costumer</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"updateCostumer\">Update an existing costumer</button>
@@ -261,7 +261,7 @@ function requestSimple($option) {
                 <p class=\"mb-0\">Choose an option</p>
                 <div class=\"list-group mt-3\">
                     <form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">
-                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCostumers\">List all costumers</button>
+                        <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"listAllCustomers\">List all costumers</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"getCostumerInformation\">Get full costumer information</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"createCostumer\">Create a new costumer</button>
                         <button type=\"submit\" class=\"list-group-item list-group-item-action\" name=\"updateCostumer\">Update an existing costumer</button>

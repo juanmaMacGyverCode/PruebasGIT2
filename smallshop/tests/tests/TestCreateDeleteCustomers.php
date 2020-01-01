@@ -40,7 +40,7 @@ final class TestEncrypt extends TestCase
 function testCreateDeleteCustomers($name, $surname, $fileUpload, $idUser)
 {
     createNewCostumer($name, $surname, $fileUpload, $idUser);
-    $allCustomers = listAllCostumers();
+    $allCustomers = listAllCustomers();
     return deleteCustomer($allCustomers[count($allCustomers) - 1]->getIdCostumer());
 }
 
@@ -49,7 +49,7 @@ function testOnlyCreateCustomers($name, $surname, $fileUpload, $idUser)
     return createNewCostumer($name, $surname, $fileUpload, $idUser);
 }
 
-function listAllCostumers()
+function listAllCustomers()
 {
     $allCostumers = array();
 

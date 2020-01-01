@@ -96,9 +96,9 @@ function createNewCostumer($name, $surname, $fileUpload, $idUser)
 }
 
 
-function listAllCostumers()
+function listAllCustomers()
 {
-    $allCostumers = array();
+    $allCustomers = array();
 
     $mysqli = connection();
 
@@ -106,13 +106,13 @@ function listAllCostumers()
     if ($query = $mysqli->query($sql)) {
         while ($row = $query->fetch_assoc()) {
             $newCostumer = new Costumer($row["idCostumer"], $row["nameCostumer"], $row["surname"], $row["imageName"], $row["idUserCreator"], $row["idUserLastModify"]);
-            array_push($allCostumers, $newCostumer);
+            array_push($allCustomers, $newCostumer);
         }
     }
 
     $mysqli->close();
 
-    return $allCostumers;
+    return $allCustomers;
 }
 
 function leerTodosPaginacionConBoton($valor, $numberRow)
@@ -130,7 +130,7 @@ function leerTodosPaginacionConBoton($valor, $numberRow)
         $consultaToda =
             "<div class=\"row mt-5\">
             <div class=\"mx-auto w-75 p-3 text-center opacity-80\">
-                <h1 class=\"mb-0\">LIST ALL COSTUMERS</h1>
+                <h1 class=\"mb-0\">LIST ALL CUSTOMERS</h1>
                 <hr>
                 <table class=\"table table-striped table-dark\">
                   <thead>
