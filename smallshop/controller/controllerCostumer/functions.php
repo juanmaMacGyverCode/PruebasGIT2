@@ -32,7 +32,7 @@ function showBoxCreateCostumer($name, $surname, $errorName, $errorSurname, $erro
         </div>";
 }
 
-function uploadFile()
+function uploadFile($fileUpload)
 {
     $errorUpload = "";
 
@@ -46,9 +46,10 @@ function uploadFile()
     if ($fileType == "image/jpg" || $fileType == "image/jpeg" || $fileType == "image/png" || $fileType == "image/png") {
         if (strlen($_FILES["uploadImage"]['name']) <= 60) {
             if ($_FILES["uploadImage"]['size'] <= 1048576) {
-                $fileName = $_FILES["uploadImage"]['name'];
+                //$fileName = $_FILES["uploadImage"]['name'];
+                //$fileExtension = explode("/", $fileType)[1];
                 $folderAddress = "../uploads/";
-                move_uploaded_file($_FILES["uploadImage"]["tmp_name"], $folderAddress . $fileName);
+                move_uploaded_file($_FILES["uploadImage"]["tmp_name"], $folderAddress . $fileUpload);
             } else {
                 $errorUpload = "<p class=\"text-danger\">Max size image 1 MB</p>";
             }
@@ -117,4 +118,35 @@ function thereIsThatID($idCustomer, $allCustomers)
         }
     }
     return true;
+}
+
+function createAlphanumericName($fileType) {
+    
+    $alphanumeric = "abcdefghijklmnopqrstuvwxyz0123456789";
+    $fileExtension = explode("/", $fileType)[1];
+    /*$newName = "";
+    for ($i=0; $i < 20; $i++) { 
+        $newName .= $alphanumeric[rand(0, strlen($alphanumeric) - 1)];
+    }*/
+
+    while (true) {
+        $newName = "";
+        for ($i = 0; $i < 20; $i++) {
+            $newName .= $alphanumeric[rand(0, strlen($alphanumeric) - 1)];
+        }
+        
+        if (!file_exists($newName)) {
+            return $newName . "." . $fileExtension;
+        }
+    }
+   
+}
+
+function deleteImage($idCustomer, $allCustomers) {
+
+    foreach ($allCustomers as $customer) {
+        if ($idCustomer == $customer->getIdCostumer()) {
+            unlink("..\\uploads\\" . decrypt($customer->getImage(), "1235@"));
+        }
+    }
 }

@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorName = "<p class=\"text-danger\">Required field</p>";
         } else {
             if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
-                $errorName = "<p class=\"text-danger\">Max 20 characters</p>";
+                $errorName = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
                     $errorName = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
@@ -163,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorSurname = "<p class=\"text-danger\">Required field</p>";
         } else {
             if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
-                $errorSurname = "<p class=\"text-danger\">Max 20 characters</p>";
+                $errorSurname = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {
                     $errorSurname = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
@@ -181,8 +181,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen(strip_tags($_FILES["uploadImage"]["name"])) != strlen($_FILES["uploadImage"]["name"])) {
                 $errorUpload = "<p class=\"text-danger\">Incorrect characters</p>";
             } else {
-                $errorUpload = uploadFile();
-                $fileUpload = $_FILES["uploadImage"]["name"];
+                //$nameUpload = $_FILES["uploadImage"]["name"];
+                $fileUpload = createAlphanumericName($_FILES["uploadImage"]["type"]);
+
+                $errorUpload = uploadFile($fileUpload);
+                //$fileUpload = $alphanumericName;
+                //$fileUpload = $_FILES["uploadImage"]["name"];
             }
         }
 
@@ -259,7 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorName = "<p class=\"text-danger\">Required field</p>";
         } else {
             if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
-                $errorName = "<p class=\"text-danger\">Max 20 characters</p>";
+                $errorName = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
                     $errorName = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
@@ -277,7 +281,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $errorSurname = "<p class=\"text-danger\">Required field</p>";
         } else {
             if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
-                $errorSurname = "<p class=\"text-danger\">Max 20 characters</p>";
+                $errorSurname = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
                 if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {
                     $errorSurname = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
@@ -301,14 +305,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen(strip_tags($_FILES["uploadImage"]["name"])) != strlen($_FILES["uploadImage"]["name"])) {
                 $errorUpload = "<p class=\"text-danger\">Incorrect characters</p>";
             } else {
-                $errorUpload = uploadFile();
-                $fileUpload = $_FILES["uploadImage"]["name"];
+                $fileUpload = createAlphanumericName($_FILES["uploadImage"]["type"]);
+                $errorUpload = uploadFile($fileUpload);
+                //$fileUpload = $_FILES["uploadImage"]["name"];
             }
         }
         
         $imageHidden = $_POST["uploadImageHidden"];
 
         if ((!empty($idCustomer) && !empty($name) && !empty($surname)) || !empty($fileUpload) || !empty($checkboxDeleteImage)) {
+
+            if ($checkboxDeleteImage || isset($_FILES["uploadImage"]["name"])) {
+                deleteImage($idCustomer, $allCustomers);
+            }
 
             $success = updateCustomer($idCustomer, $name, $surname, $fileUpload, $checkboxDeleteImage, $_SESSION["idUser"]);
 
@@ -368,6 +377,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         if (!empty($idCustomer)) {
+            deleteImage($idCustomer, $allCustomers);
             if (deleteCustomer($idCustomer)) {
                 $showBoxDatabase = layoutSimple("successOperation");
             } else {
