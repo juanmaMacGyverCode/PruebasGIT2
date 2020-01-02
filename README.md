@@ -19,9 +19,21 @@ For proper operation, host the application in the htdocs folder in the folder XA
 mysql -u root
 ```
 
-And finally, copy and paste in the shell the whole script of the database.
+And finally, copy and paste the script inside in scriptDatabase.sql in the shell the whole script of the database.
 
-To use the application: Open your browser and write: "localhost/foldersOfProject/smallshop/views/index.php".
+## How to run the application?
+
+In the folder /xampp/htdocs, you can open github or dowload from:
+
+https://github.com/juanmaMacGyverCode/PruebasGIT2
+
+The command for github is:
+
+```bash
+git clone https://github.com/juanmaMacGyverCode/PruebasGIT2.git
+```
+
+And finally, to open the application, open your browser and write: localhost/smallshop/views/index.php.
 
 ## How to use?
 
