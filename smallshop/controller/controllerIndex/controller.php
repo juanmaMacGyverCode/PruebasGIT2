@@ -83,7 +83,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen(trim($_POST["fullname"])) > 40 || strlen($_POST["fullname"]) < 4) {
                 $errorFullname = "<p class=\"text-danger\">Max 40 characters and min 4 characters</p>";
             } else {
-                if (!preg_match("/^[a-zA-Z ]*$/", trim($_POST["fullname"]))) {
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", trim($_POST["fullname"]))) {
                     $errorFullname = "<p class=\"text-danger\">Wrong format. Only numbers and letters with spaces</p>";
                 } else {
                     if (strlen(strip_tags(trim($_POST["fullname"]))) != strlen(trim($_POST["fullname"]))) {

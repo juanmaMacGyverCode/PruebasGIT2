@@ -147,7 +147,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
                 $errorName = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
-                if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
+                //([a-zA-Z]){1}(([ ]){1}([a-zA-Z])+)
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", $_POST["name"])) {
                     $errorName = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
                 } else {
                     if (strlen(strip_tags($_POST["name"])) != strlen($_POST["name"])) {
@@ -165,7 +166,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
                 $errorSurname = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
-                if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", $_POST["surname"])) {
                     $errorSurname = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
                 } else {
                     if (strlen(strip_tags($_POST["surname"])) != strlen($_POST["surname"])) {
@@ -265,7 +266,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen($_POST["name"]) > 20 || strlen($_POST["name"]) < 4) {
                 $errorName = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
-                if (!preg_match("/^[a-zA-Z ]*$/", $_POST["name"])) {
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", $_POST["name"])) {
                     $errorName = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
                 } else {
                     if (strlen(strip_tags($_POST["name"])) != strlen($_POST["name"])) {
@@ -283,7 +284,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (strlen($_POST["surname"]) > 20 || strlen($_POST["surname"]) < 4) {
                 $errorSurname = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
             } else {
-                if (!preg_match("/^[a-zA-Z ]*$/", $_POST["surname"])) {
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", $_POST["surname"])) {
                     $errorSurname = "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
                 } else {
                     if (strlen(strip_tags($_POST["surname"])) != strlen($_POST["surname"])) {
