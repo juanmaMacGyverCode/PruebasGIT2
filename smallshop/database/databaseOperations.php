@@ -163,20 +163,20 @@ function leerTodosPaginacionConBoton($valor, $numberRow)
     $consultaToda .= "<br><div class=\"d-flex justify-content-around\">";
 
     if ($inicio == 0) {
-        $consultaToda .= "<p class=\"font-weight-bold\">Anteriores</p>";
+        $consultaToda .= "<p class=\"font-weight-bold\">Previous</p>";
     } else {
         $anterior = $inicio - $numberRow;
-        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionAnterior\" value=\"Anteriores\">";
+        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionAnterior\" value=\"Previous\">";
         $consultaToda .= "<input type=\"hidden\" name=\"anterior\" value=\"" . $anterior . "\">";
         $consultaToda .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
     }
     if ($impresos == $numberRow) {
         $proximo = $inicio + $numberRow;
-        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionPosterior\" value=\"Siguientes\">";
+        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionPosterior\" value=\"Next\">";
         $consultaToda .= "<input type=\"hidden\" name=\"posterior\" value=\"" . $proximo . "\">";
         $consultaToda .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
     } else {
-        $consultaToda .= "<p class=\"font-weight-bold\">Siguientes</p>";
+        $consultaToda .= "<p class=\"font-weight-bold\">Next</p>";
     }
 
     $consultaToda .= "</div></form>

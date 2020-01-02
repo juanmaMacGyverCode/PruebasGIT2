@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         if (userExists($_POST["username"], $allUsers)) {
                             $errorUsername = "<p class=\"text-danger\">The username already exists, please choose another</p>";
                         } else {
-                            $username = test_input($_POST["username"]);
+                            $username = strip_tags(test_input($_POST["username"]));
                         }
                     }
                 }
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["password"])) != strlen($_POST["password"])) {
                         $errorPassword = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $password = test_input($_POST["password"]);
+                        $password = strip_tags(test_input($_POST["password"]));
                     }
                 }
             }
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags(trim($_POST["fullname"]))) != strlen(trim($_POST["fullname"]))) {
                         $errorFullname = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $fullname = test_input($_POST["fullname"]);
+                        $fullname = strip_tags(test_input($_POST["fullname"]));
                     }
                 }
             }
@@ -101,7 +101,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if (emailExists($_POST["email"], $allUsers)) {
                 $errorEmail = "<p class=\"text-danger\">The email already exists, please choose another</p>";
             } else {
-                $email = test_input($_POST["email"]);
+                $email = strip_tags(test_input($_POST["email"]));
             }
             //$email = test_input($_POST["email"]);
         }
@@ -133,7 +133,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["usernameLogin"])) != strlen($_POST["usernameLogin"])) {
                         $errorUsername = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $username = test_input($_POST["usernameLogin"]);
+                        $username = strip_tags(test_input($_POST["usernameLogin"]));
                     }
                 }
             }
@@ -151,7 +151,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["passwordLogin"])) != strlen($_POST["passwordLogin"])) {
                         $errorPassword = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $password = test_input($_POST["passwordLogin"]);
+                        $password = strip_tags(test_input($_POST["passwordLogin"]));
                     }
                 }
             }

@@ -33,11 +33,9 @@ function showMenuAdministrator($administrator)
                     <form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">
                         <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"listAllCustomers\">List all customers</button>
                         <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"getCostumberInformation\">Get full costumer information</button>
-                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"createCostumer\">Create a new costumer</button>
-                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"updateCostumer\">Update an existing costumer</button>
-                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"deleteCostumer\">Delete an existing costumer</button>
-                        <div class=\"dropdown-divider\"></div>
-                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"deleteCostumer\">Update your user account</button>
+                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"createCostumer\">Create a new customer</button>
+                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"updateCostumer\">Update an existing customer</button>
+                        <button type=\"submit\" class=\"dropdown-item list-group-item-action\" name=\"deleteCostumer\">Delete an existing customer</button>
                     </form>
                 </div>
             </li>";

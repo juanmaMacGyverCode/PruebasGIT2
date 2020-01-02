@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         $errorNumberRows = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
                         if ($_POST["numberRows"] > 0 && $_POST["numberRows"] <= 300) {
-                            $numberRows = test_input($_POST["numberRows"]);
+                            $numberRows = strip_tags(test_input($_POST["numberRows"]));
                         } else {
                             $errorNumberRows = "<p class=\"text-danger\">Minimun of lines 1, maximun of lines 300</p>";
                         }
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $errorNumber = "<p class=\"text-danger\">Incorrect characters</p>";
                 } else {
                     if ($_POST["idCustomer"] > 0) {
-                        $number = test_input($_POST["idCustomer"]);
+                        $number = strip_tags(test_input($_POST["idCustomer"]));
                     } else {
                         $errorNumber = "<p class=\"text-danger\">Minimun of lines 1</p>";
                     }
@@ -154,7 +154,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["name"])) != strlen($_POST["name"])) {
                         $errorName = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $name = test_input($_POST["name"]);
+                        $name = strip_tags(test_input($_POST["name"]));
                     }
                 }
             }
@@ -172,7 +172,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["surname"])) != strlen($_POST["surname"])) {
                         $errorSurname = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $surname = test_input($_POST["surname"]);
+                        $surname = strip_tags(test_input($_POST["surname"]));
                     }
                 }
             }
@@ -225,7 +225,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $errorNumber = "<p class=\"text-danger\">Incorrect characters</p>";
                 } else {
                     if ($_POST["idCustomer"] > 0) {
-                        $number = test_input($_POST["idCustomer"]);
+                        $number = strip_tags(test_input($_POST["idCustomer"]));
                     } else {
                         $errorNumber = "<p class=\"text-danger\">Minimun of lines 1</p>";
                     }
@@ -272,7 +272,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["name"])) != strlen($_POST["name"])) {
                         $errorName = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $name = test_input($_POST["name"]);
+                        $name = strip_tags(test_input($_POST["name"]));
                     }
                 }
             }
@@ -290,7 +290,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     if (strlen(strip_tags($_POST["surname"])) != strlen($_POST["surname"])) {
                         $errorSurname = "<p class=\"text-danger\">Incorrect characters</p>";
                     } else {
-                        $surname = test_input($_POST["surname"]);
+                        $surname = strip_tags(test_input($_POST["surname"]));
                     }
                 }
             }
@@ -366,7 +366,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 } else {
                     if ($_POST["idCustomer"] > 0) {
                         if (!thereIsThatID($_POST["idCustomer"], $allCustomers)) {
-                            $idCustomer = test_input($_POST["idCustomer"]);
+                            $idCustomer = strip_tags(test_input($_POST["idCustomer"]));
                         } else {
                             $errorIdCustomer = "<p class=\"text-danger\">There isn´t that ID customer, choose any other</p>";
                         }
