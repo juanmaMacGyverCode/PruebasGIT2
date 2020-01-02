@@ -87,41 +87,19 @@ class Costumer
 
         $cardLastModify = "";
         if ($userLastModify != null) {
-            $cardLastModify = "<p class=\"card-text\"><span class=\"font-weight-bold\">ID user update:</span> " . $this->idUserLastModify . ". <span class=\"font-weight-bold\">Username:</span> " . decrypt($userLastModify->getUsername(), "1235@") . "</p>";
+            $cardLastModify = "<p class=\"card-text\"><span class=\"font-weight-bold\">ID user update:</span> " . $this->idUserLastModify . ". <span class=\"font-weight-bold\">Username:</span> " . $userLastModify->getUsername() . "</p>";
         } else {
             $cardLastModify = "<p class=\"card-text\"><span class=\"font-weight-bold\">ID user update:</span> EMPTY. <span class=\"font-weight-bold\">Username:</span> EMPTY. </p>";
         }
 
         $image = "";
         if (strlen($this->image) > 1) {
-            //$image = "\"..\\uploads\\" . decrypt($this->image, "1235@") . "\"";
             $image = "<div class=\"col-md-4\">
-                  <img src=\"..\\uploads\\" . decrypt($this->image, "1235@") . "\" class=\"card-img\" alt=\"File Not Found\">
+                  <img src=\"..\\uploads\\" . $this->image . "\" class=\"card-img\" alt=\"File Not Found\">
                 </div>";
         } else {
             $image = "<div class=\"col-md-4\"><i class='fas fa-user' style='font-size:15em;color:red'></i></div>";
         }
-
-        /*$dataSheet =
-            "<div class=\"card mb-3 mt-3 mx-auto w-100 text-left\">
-              <div class=\"row no-gutters\">
-                <div class=\"col-md-4\">
-                  <img src=" . $image . " class=\"card-img\" alt=\"File Not Found\">
-                </div>
-                <div class=\"col-md-8\">
-                  <div class=\"card-header\">
-                    <h5 class=\"card-title\">Id: " . $this->idCostumer . "</h5>
-                  </div>
-                  <div class=\"card-body\">
-                    <h5 class=\"card-title\">Surname: " . decrypt($this->surname, "1235@") . "</h5>
-                    <h5 class=\"card-title\">Name: " . decrypt($this->nameCostumer, "1235@") . "</h5>
-                    <hr>
-                    <p class=\"card-text\"><span class=\"font-weight-bold\">ID user creator:</span> " . $this->idUserCreator . ". <span class=\"font-weight-bold\">Username:</span> " . decrypt($userCreator->getUsername(), "1235@") . "</p>
-                    " . $cardLastModify . "
-                  </div>
-                </div>
-              </div>
-            </div>";*/
 
         $dataSheet =
             "<div class=\"card mb-3 mt-3 mx-auto w-100 text-left\">
@@ -132,10 +110,10 @@ class Costumer
                     <h5 class=\"card-title\">Id: " . $this->idCostumer . "</h5>
                   </div>
                   <div class=\"card-body\">
-                    <h5 class=\"card-title\">Surname: " . decrypt($this->surname, "1235@") . "</h5>
-                    <h5 class=\"card-title\">Name: " . decrypt($this->nameCostumer, "1235@") . "</h5>
+                    <h5 class=\"card-title\">Surname: " . $this->surname . "</h5>
+                    <h5 class=\"card-title\">Name: " . $this->nameCostumer . "</h5>
                     <hr>
-                    <p class=\"card-text\"><span class=\"font-weight-bold\">ID user creator:</span> " . $this->idUserCreator . ". <span class=\"font-weight-bold\">Username:</span> " . decrypt($userCreator->getUsername(), "1235@") . "</p>
+                    <p class=\"card-text\"><span class=\"font-weight-bold\">ID user creator:</span> " . $this->idUserCreator . ". <span class=\"font-weight-bold\">Username:</span> " . $userCreator->getUsername() . "</p>
                     " . $cardLastModify . "
                   </div>
                 </div>

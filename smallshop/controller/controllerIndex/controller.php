@@ -37,77 +37,83 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["signin"])) {
 
-        if (empty($_POST["username"])) {
-            $errorUsername = "<p class=\"text-danger\">Required field</p>";
+        $data = $_POST["username"];
+        if (empty($data)) {
+            $errorUsername = getHTMLerror("requiredField");
         } else {
-            if (strlen($_POST["username"]) > 20 || strlen($_POST["username"]) < 4) {
-                $errorUsername = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
+            if (strlen($data) > 20 || strlen($data) < 4) {
+                $errorUsername = getHTMLerror("numberCharacters20");
             } else {
-                if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["username"])) {
-                    $errorUsername = "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+                if (!preg_match("/^[a-zA-Z0-9]*$/", $data)) {
+                    $errorUsername = getHTMLerror("numbersLetters");
                 } else {
-                    if (strlen(strip_tags($_POST["username"])) != strlen($_POST["username"])) {
-                        $errorUsername = "<p class=\"text-danger\">Incorrect characters</p>";
+                    if (strlen(strip_tags($data)) != strlen($data)) {
+                        $errorUsername = getHTMLerror("incorrectCharacters");
                     } else {
-                        if (userExists($_POST["username"], $allUsers)) {
-                            $errorUsername = "<p class=\"text-danger\">The username already exists, please choose another</p>";
+                        if (userExists($data, $allUsers)) {
+                            $errorUsername = getHTMLerror("usernameExists");
                         } else {
-                            $username = strip_tags(test_input($_POST["username"]));
+                            $username = strip_tags(test_input($data));
                         }
                     }
                 }
             }
         }
 
-        if (empty($_POST["password"])) {
-            $errorPassword = "<p class=\"text-danger\">Required field</p>.";
+        $data = $_POST["password"];
+        if (empty($data)) {
+            $errorPassword = getHTMLerror("requiredField");
         } else {
-            if (strlen($_POST["password"]) > 20 || strlen($_POST["password"]) < 4) {
-                $errorPassword = "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
+            if (strlen($data) > 20 || strlen($data) < 4) {
+                $errorPassword = getHTMLerror("numberCharacters20");
             } else {
-                if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["password"])) {
-                    $errorPassword = "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+                if (!preg_match("/^[a-zA-Z0-9]*$/", $data)) {
+                    $errorPassword = getHTMLerror("numbersLetters");
                 } else {
-                    if (strlen(strip_tags($_POST["password"])) != strlen($_POST["password"])) {
-                        $errorPassword = "<p class=\"text-danger\">Incorrect characters</p>";
+                    if (strlen(strip_tags($data)) != strlen($data)) {
+                        $errorPassword = getHTMLerror("incorrectCharacters");
                     } else {
-                        $password = strip_tags(test_input($_POST["password"]));
+                        $password = strip_tags(test_input($data));
                     }
                 }
             }
         }
 
-        if (empty($_POST["fullname"])) {
-            $errorFullname = "<p class=\"text-danger\">Required field</p>.";
+        $data = $_POST["fullname"];
+        if (empty($data)) {
+            $errorFullname = getHTMLerror("requiredField");
         } else {
-            if (strlen(trim($_POST["fullname"])) > 40 || strlen($_POST["fullname"]) < 4) {
-                $errorFullname = "<p class=\"text-danger\">Max 40 characters and min 4 characters</p>";
+            if (strlen(trim($data)) > 40 || strlen($data) < 4) {
+                $errorFullname = getHTMLerror("numberCharacters40");
             } else {
-                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", trim($_POST["fullname"]))) {
-                    $errorFullname = "<p class=\"text-danger\">Wrong format. Only numbers and letters with spaces</p>";
+                if (!preg_match("/^([a-zA-Z])+(([ ]){1}([a-zA-Z])+)*$/", trim($data))) {
+                    $errorFullname = getHTMLerror("numbersLettersSpaces");
                 } else {
-                    if (strlen(strip_tags(trim($_POST["fullname"]))) != strlen(trim($_POST["fullname"]))) {
-                        $errorFullname = "<p class=\"text-danger\">Incorrect characters</p>";
+                    if (strlen(strip_tags(trim($data))) != strlen(trim($data))) {
+                        $errorFullname = getHTMLerror("incorrectCharacters");
                     } else {
-                        $fullname = strip_tags(test_input($_POST["fullname"]));
+                        $fullname = strip_tags(test_input($data));
                     }
                 }
             }
         }
 
-        if (empty($_POST["email"])) {
-            $errorEmail = "<p class=\"text-danger\">Required field</p>.";
+        $data = $_POST["email"];
+        if (empty($data)) {
+            $errorEmail = getHTMLerror("requiredField");
         } else {
-            if (emailExists($_POST["email"], $allUsers)) {
-                $errorEmail = "<p class=\"text-danger\">The email already exists, please choose another</p>";
+            if (strlen(trim($data)) > 40 || strlen($data) < 4) {
+                $errorEmail = getHTMLerror("numberCharacters40");
             } else {
-                $email = strip_tags(test_input($_POST["email"]));
+                if (emailExists($data, $allUsers)) {
+                    $errorEmail = getHTMLerror("emailExists");
+                } else {
+                    $email = strip_tags(test_input($data));
+                }
             }
-            //$email = test_input($_POST["email"]);
         }
 
         if (!empty($username) && !empty($password) && !empty($fullname) && !empty($email)) {
-            //signinUser($username, $password, $fullname, $email);
             if (signinUser($username, $password, $fullname, $email)) {
                 $showBoxDatabase = layoutSimple("successOperation");
             } else {
@@ -121,37 +127,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (isset($_POST["login"])) {
 
-        if (empty($_POST["usernameLogin"])) {
-            $errorUsername = "<p class=\"text-danger\">Required field</p>.";
+        $data = $_POST["usernameLogin"];
+        if (empty($data)) {
+            $errorUsername = getHTMLerror("requiredField");
         } else {
-            if (strlen($_POST["usernameLogin"]) > 20 || strlen($_POST["usernameLogin"]) < 4) {
-                $errorUsername = "<p class=\"text-danger\">Max 20 characters</p>";
+            if (strlen($data) > 20 || strlen($data) < 4) {
+                $errorUsername = getHTMLerror("numberCharacters20");
             } else {
-                if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["usernameLogin"])) {
-                    $errorUsername = "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+                if (!preg_match("/^[a-zA-Z0-9]*$/", $data)) {
+                    $errorUsername = getHTMLerror("numbersLetters");
                 } else {
-                    if (strlen(strip_tags($_POST["usernameLogin"])) != strlen($_POST["usernameLogin"])) {
-                        $errorUsername = "<p class=\"text-danger\">Incorrect characters</p>";
+                    if (strlen(strip_tags($data)) != strlen($data)) {
+                        $errorUsername = getHTMLerror("incorrectCharacters");
                     } else {
-                        $username = strip_tags(test_input($_POST["usernameLogin"]));
+                        $username = strip_tags(test_input($data));
                     }
                 }
             }
         }
 
-        if (empty($_POST["passwordLogin"])) {
-            $errorPassword = "<p class=\"text-danger\">Required field</p>.";
+        $data = $_POST["passwordLogin"];
+        if (empty($data)) {
+            $errorPassword = getHTMLerror("requiredField");
         } else {
-            if (strlen($_POST["passwordLogin"]) > 20 || strlen($_POST["passwordLogin"]) < 4) {
-                $errorPassword = "<p class=\"text-danger\">Max 20 characters</p>";
+            if (strlen($data) > 20 || strlen($data) < 4) {
+                $errorPassword = getHTMLerror("numberCharacters20");
             } else {
-                if (!preg_match("/^[a-zA-Z0-9]*$/", $_POST["passwordLogin"])) {
-                    $errorPassword = "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+                if (!preg_match("/^[a-zA-Z0-9]*$/", $data)) {
+                    $errorPassword = getHTMLerror("numbersLetters");
                 } else {
-                    if (strlen(strip_tags($_POST["passwordLogin"])) != strlen($_POST["passwordLogin"])) {
-                        $errorPassword = "<p class=\"text-danger\">Incorrect characters</p>";
+                    if (strlen(strip_tags($data)) != strlen($data)) {
+                        $errorPassword = getHTMLerror("incorrectCharacters");
                     } else {
-                        $password = strip_tags(test_input($_POST["passwordLogin"]));
+                        $password = strip_tags(test_input($data));
                     }
                 }
             }

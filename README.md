@@ -75,7 +75,6 @@ composer require --dev phpunit/phpunit ^8.5
 ## Execute tests (I recommend placing the bash of cmd in the project folder \smallshop\tests):
 
 ```bash
-.\vendor\bin\phpunit --bootstrap .\vendor\autoload.php .\tests\TestEncrypt
 .\vendor\bin\phpunit --bootstrap .\vendor\autoload.php .\tests\TestLayoutRequestSimple
 .\vendor\bin\phpunit --bootstrap .\vendor\autoload.php .\tests\TestShowLoginRegisterLogout
 .\vendor\bin\phpunit --bootstrap .\vendor\autoload.php .\tests\TestUserExists

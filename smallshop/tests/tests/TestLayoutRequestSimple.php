@@ -1,12 +1,8 @@
 <?php
 
 declare(strict_types=1);
-//require_once ('../controlador/controladorIndex/functions.php');
-
-//include("..\\controlador\\controladorIndex\\functions.php");
 
 use PHPUnit\Framework\TestCase;
-//use functions;
 
 final class TestEncrypt extends TestCase
 {

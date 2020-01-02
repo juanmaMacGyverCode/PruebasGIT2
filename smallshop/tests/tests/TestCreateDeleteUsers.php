@@ -71,21 +71,12 @@ function createAllUsers()
 
 function signinUser($username, $password, $fullname, $email)
 {
+
     if ($username == null || $password == null || $fullname == null || $email == null) {
         return false;
     }
 
     $mysqli = connection();
-
-    $username = $mysqli->real_escape_string($username);
-    $password = $mysqli->real_escape_string($password);
-    $fullname = $mysqli->real_escape_string($fullname);
-    $email = $mysqli->real_escape_string($email);
-
-    $username = encrypt($username, "1235@");
-    $password = encrypt($password, "1235@");
-    $fullname = encrypt($fullname, "1235@");
-    $email = encrypt($email, "1235@");
 
     $prepareStatement = $mysqli->stmt_init();
     $prepareStatement->prepare("INSERT INTO users (username, pass, fullName, email) VALUES (?, ?, ?, ?)");
@@ -129,13 +120,6 @@ function deleteUser($idUser)
     $mysqli->close();
 
     return $success;
-}
-
-function encrypt($data, $key)
-{
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-    $encrypted = openssl_encrypt($data, "aes-256-cbc", $key, 0, $iv);
-    return base64_encode($encrypted . "::" . $iv);
 }
 
 function connection()

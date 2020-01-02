@@ -8,56 +8,56 @@ final class TestEncrypt extends TestCase
 {
     public function testUserExistsTrue1(): void
     {
-        $user = array(new User(1, encrypt("Fernando", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "Fernando", "1234", "Fernando Gomez", "fernando@gmail.com"));
         
         $this->assertNotFalse(userExists("Fernando", $user));
     }
 
     public function testUserExistsTrue2(): void
     {
-        $user = array(new User(1, encrypt("", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertNotFalse(userExists("", $user));
     }
 
     public function testUserExistsTrue3(): void
     {
-        $user = array(new User(1, encrypt("asd123", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "asd123", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertNotFalse(userExists("asd123", $user));
     }
 
     public function testUserExistsTrue4(): void
     {
-        $user = array(new User(1, encrypt("aaaaddddffffgggghhhh", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "aaaaddddffffgggghhhh", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertNotFalse(userExists("aaaaddddffffgggghhhh", $user));
     }
 
     public function testUserExistsFalse1(): void
     {
-        $user = array(new User(1, encrypt("Fernando", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "Fernando", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertFalse(userExists("Fernndo", $user));
     }
 
     public function testUserExistsFalse2(): void
     {
-        $user = array(new User(1, encrypt("", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "", "1234", "Fernando Gomez", "fernando@gmail.com", "1235@"));
 
         $this->assertFalse(userExists("a", $user));
     }
 
     public function testUserExistsFalse3(): void
     {
-        $user = array(new User(1, encrypt("asd123", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "asd123", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertFalse(userExists("as123", $user));
     }
 
     public function testUserExistsFalse4(): void
     {
-        $user = array(new User(1, encrypt("aaaaddddffffgggghhhh", "1235@"), encrypt("1234", "1235@"), encrypt("Fernando Gomez", "1235@"), encrypt("fernando@gmail.com", "1235@")));
+        $user = array(new User(1, "aaaaddddffffgggghhhh", "1234", "Fernando Gomez", "fernando@gmail.com"));
 
         $this->assertFalse(userExists("aaaahhhh", $user));
     }
@@ -67,24 +67,11 @@ function userExists($username, $allUsers)
 {
 
     foreach ($allUsers as $user) {
-        if (decrypt($user->getUsername(), "1235@") == $username) {
+        if ($user->getUsername() == $username) {
             return true;
         }
     }
     return false;
-}
-
-function encrypt($data, $key)
-{
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-    $encrypted = openssl_encrypt($data, "aes-256-cbc", $key, 0, $iv);
-    return base64_encode($encrypted . "::" . $iv);
-}
-
-function decrypt($data, $key)
-{
-    list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-    return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
 }
 
 class User

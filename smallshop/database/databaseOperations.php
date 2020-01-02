@@ -26,16 +26,6 @@ function signinUser($username, $password, $fullname, $email)
 
     $mysqli = connection();
 
-    $username = $mysqli->real_escape_string($username);
-    $password = $mysqli->real_escape_string($password);
-    $fullname = $mysqli->real_escape_string($fullname);
-    $email = $mysqli->real_escape_string($email);
-
-    $username = encrypt($username, "1235@");
-    $password = encrypt($password, "1235@");
-    $fullname = encrypt($fullname, "1235@");
-    $email = encrypt($email, "1235@");
-
     $prepareStatement = $mysqli->stmt_init();
     $prepareStatement->prepare("INSERT INTO users (username, pass, fullName, email) VALUES (?, ?, ?, ?)");
     $prepareStatement->bind_param("ssss", $username, $password, $fullname, $email);
@@ -62,18 +52,10 @@ function createNewCostumer($name, $surname, $fileUpload, $idUser)
 
     $mysqli = connection();
 
-    $name = $mysqli->real_escape_string($name);
-    $surname = $mysqli->real_escape_string($surname);
-    $idUser = $mysqli->real_escape_string($idUser);
-
-    $name = encrypt($name, "1235@");
-    $surname = encrypt($surname, "1235@");
-
     $prepareStatement = $mysqli->stmt_init();
 
     if (!empty($fileUpload)) {
         $fileUpload = $mysqli->real_escape_string($fileUpload);
-        $fileUpload = encrypt($fileUpload, "1235@");
 
         $prepareStatement->prepare("INSERT INTO costumers (nameCostumer, surname, imageName, idUserCreator) VALUES (?, ?, ?, ?)");
         $prepareStatement->bind_param("sssi", $name, $surname, $fileUpload, $idUser);
@@ -115,19 +97,19 @@ function listAllCustomers()
     return $allCustomers;
 }
 
-function leerTodosPaginacionConBoton($valor, $numberRow)
+function paginationWithButtom($value, $numberRow)
 {
 
     $mysqli = connection();
-    $inicio = $valor;
+    $start = $value;
 
-    $impresos = 0;
-    $consultaToda = "";
+    $printed = 0;
+    $allQuery = "";
 
-    $sql = "SELECT idCostumer, nameCostumer, surname, idUserCreator, idUserLastModify FROM costumers LIMIT $inicio, $numberRow";
+    $sql = "SELECT idCostumer, nameCostumer, surname, idUserCreator, idUserLastModify FROM costumers LIMIT $start, $numberRow";
 
-    if ($resultado = $mysqli->query($sql)) {
-        $consultaToda =
+    if ($summary = $mysqli->query($sql)) {
+        $allQuery =
             "<div class=\"row mt-5\">
             <div class=\"mx-auto w-75 p-3 text-center opacity-80\">
                 <h1 class=\"mb-0\">LIST ALL CUSTOMERS</h1>
@@ -143,48 +125,48 @@ function leerTodosPaginacionConBoton($valor, $numberRow)
                     </tr>
                   </thead>
                   <tbody>";
-        while ($fila = $resultado->fetch_assoc()) {
-            $impresos++;
-            $consultaToda .=
+        while ($fila = $summary->fetch_assoc()) {
+            $printed++;
+            $allQuery .=
                 "<tr>
                 <th scope=\"row\">" . $fila["idCostumer"] . "</th>
-                <td>" . decrypt($fila["nameCostumer"], "1235@") . "</td>
-                <td>" . decrypt($fila["surname"], "1235@") . "</td>
+                <td>" . $fila["nameCostumer"] . "</td>
+                <td>" . $fila["surname"] . "</td>
                 <td>" . $fila["idUserCreator"] . "</td>
                 <td>" . $fila["idUserLastModify"] . "</td>
             </tr>";
         }
-        $consultaToda .= "</tbody></table><form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">";
-        $resultado->close();
+        $allQuery .= "</tbody></table><form method=\"post\" action=\"\" enctype=\"multipart/form-data\" class=\"needs-validation\">";
+        $summary->close();
     }
     $mysqli->close();
 
 
-    $consultaToda .= "<br><div class=\"d-flex justify-content-around\">";
+    $allQuery .= "<br><div class=\"d-flex justify-content-around\">";
 
-    if ($inicio == 0) {
-        $consultaToda .= "<p class=\"font-weight-bold\">Previous</p>";
+    if ($start == 0) {
+        $allQuery .= "<p class=\"font-weight-bold\">Previous</p>";
     } else {
-        $anterior = $inicio - $numberRow;
-        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionAnterior\" value=\"Previous\">";
-        $consultaToda .= "<input type=\"hidden\" name=\"anterior\" value=\"" . $anterior . "\">";
-        $consultaToda .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
+        $previous = $start - $numberRow;
+        $allQuery .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"previousPagination\" value=\"Previous\">";
+        $allQuery .= "<input type=\"hidden\" name=\"previous\" value=\"" . $previous . "\">";
+        $allQuery .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
     }
-    if ($impresos == $numberRow) {
-        $proximo = $inicio + $numberRow;
-        $consultaToda .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"paginacionPosterior\" value=\"Next\">";
-        $consultaToda .= "<input type=\"hidden\" name=\"posterior\" value=\"" . $proximo . "\">";
-        $consultaToda .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
+    if ($printed == $numberRow) {
+        $next = $start + $numberRow;
+        $allQuery .= "<input type=\"submit\" class=\"btn btn-primary\" name=\"nextPagination\" value=\"Next\">";
+        $allQuery .= "<input type=\"hidden\" name=\"next\" value=\"" . $next . "\">";
+        $allQuery .= "<input type=\"hidden\" name=\"numberRows\" value=\"" . $numberRow . "\">";
     } else {
-        $consultaToda .= "<p class=\"font-weight-bold\">Next</p>";
+        $allQuery .= "<p class=\"font-weight-bold\">Next</p>";
     }
 
-    $consultaToda .= "</div></form>
+    $allQuery .= "</div></form>
     <div class=\"d-flex justify-content-around mt-3\">
         <a href=\"\" class=\"btn btn-primary\">Return</a>
     </div></div></div>";
 
-    return $consultaToda;
+    return $allQuery;
 }
 
 function updateCustomer($idCustomer, $name, $surname, $fileUpload, $checkboxDeleteImage, $idUser)
@@ -196,13 +178,6 @@ function updateCustomer($idCustomer, $name, $surname, $fileUpload, $checkboxDele
 
     $mysqli = connection();
 
-    $idCustomer = $mysqli->real_escape_string($idCustomer);
-    $name = $mysqli->real_escape_string($name);
-    $surname = $mysqli->real_escape_string($surname);
-
-    $name = encrypt($name, "1235@");
-    $surname = encrypt($surname, "1235@");
-
     $prepareStatement = $mysqli->stmt_init();
 
     if ($checkboxDeleteImage) {
@@ -211,7 +186,7 @@ function updateCustomer($idCustomer, $name, $surname, $fileUpload, $checkboxDele
     } else {
         if (!empty($fileUpload)) {
             $fileUpload = $mysqli->real_escape_string($fileUpload);
-            $fileUpload = encrypt($fileUpload, "1235@");
+
             $prepareStatement->prepare("UPDATE costumers SET nameCostumer=?, surname=?, imageName=?, idUserLastModify=? WHERE idCostumer=?");
             $prepareStatement->bind_param("sssii", $name, $surname, $fileUpload, $idUser, $idCustomer);
         } else {
@@ -241,8 +216,6 @@ function deleteCustomer($idCustomer) {
     }
 
     $mysqli = connection();
-
-    $idCustomer = $mysqli->real_escape_string($idCustomer);
 
     $prepareStatement = $mysqli->stmt_init();
 

@@ -1,12 +1,10 @@
 <?php
 
-//include("..\\tests\\tests\\controllerIndexFunctionsTest.php");
-
 function showLoginRegisterLogout($user)
 {
     $showMenuLogin = "";
     if (isset($user)) {
-        $showMenuLogin = "<span class=\"nav-item text-white mr-sm-2\">Bienvenido " . decrypt($user, "1235@") . "</span>
+        $showMenuLogin = "<span class=\"nav-item text-white mr-sm-2\">Bienvenido " . $user . "</span>
         <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"logout\" aria-label=\"Logout\" value=\"Logout\">";
     } else {
         $showMenuLogin = "<input class=\"form-control mr-sm-2\" type=\"text\" name=\"usernameLogin\" placeholder=\"Username\" aria-label=\"Search\">
@@ -46,7 +44,8 @@ function showMenuAdministrator($administrator)
     return $showMenuAdministrator;
 }
 
-function registerForm($errorUsername, $errorPassword, $errorFullname, $errorEmail, $username, $password, $fullname, $email) {
+function registerForm($errorUsername, $errorPassword, $errorFullname, $errorEmail, $username, $password, $fullname, $email)
+{
     $registerForm =
         "<div class=\"row w-100 mt-5 mb-5\">
         <div class=\"mx-auto w-50 p-3 text-center opacity-80\">
@@ -103,26 +102,13 @@ function registerForm($errorUsername, $errorPassword, $errorFullname, $errorEmai
         </div>
         </div>";
 
-        return $registerForm;
-}
-
-function encrypt($data, $key)
-{
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-    $encrypted = openssl_encrypt($data, "aes-256-cbc", $key, 0, $iv);
-    return base64_encode($encrypted . "::" . $iv);
-}
-
-function decrypt($data, $key)
-{
-    list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-    return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
+    return $registerForm;
 }
 
 function loginUser($username, $password, $allUsers)
 {
     foreach ($allUsers as $user) {
-        if ($username == decrypt($user->getUsername(), "1235@") && $password == decrypt($user->getPassword(), "1235@")) {
+        if ($username == $user->getUsername() && $password == $user->getPassword()) {
             newSession($user->getIdUser(), $user->getUsername(), $user->getPassword(), $user->getFullName(), $user->getEmail());
             return true;
         }
@@ -131,12 +117,13 @@ function loginUser($username, $password, $allUsers)
     return false;
 }
 
-function newSession($idUser ,$userEncrypt, $passwordEncrypt, $fullNameEncrypt, $emailEncrypt) {
+function newSession($idUser, $user, $password, $fullName, $email)
+{
     $_SESSION["idUser"] = $idUser;
-    $_SESSION["username"] = $userEncrypt;
-    $_SESSION["password"] = $passwordEncrypt;
-    $_SESSION["fullName"] = $fullNameEncrypt;
-    $_SESSION["email"] = $emailEncrypt;
+    $_SESSION["username"] = $user;
+    $_SESSION["password"] = $password;
+    $_SESSION["fullName"] = $fullName;
+    $_SESSION["email"] = $email;
 }
 
 function sessionDestroy()
@@ -147,10 +134,11 @@ function sessionDestroy()
     header("Location: index.php");
 }
 
-function userExists($username, $allUsers) {
+function userExists($username, $allUsers)
+{
 
     foreach ($allUsers as $user) {
-        if (decrypt($user->getUsername(), "1235@") == $username) {
+        if ($user->getUsername() == $username) {
             return true;
         }
     }
@@ -161,7 +149,7 @@ function emailExists($email, $allUsers)
 {
 
     foreach ($allUsers as $user) {
-        if (decrypt($user->getEmail(), "1235@") == $email) {
+        if ($user->getEmail() == $email) {
             return true;
         }
     }

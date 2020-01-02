@@ -3,18 +3,18 @@ USE smallShop;
 
 CREATE TABLE users (
 	idUser SMALLINT AUTO_INCREMENT,
-	username VARCHAR(100) NOT NULL,
-	pass VARCHAR(100) NOT NULL,
-	fullName VARCHAR(100) NOT NULL,
-	email VARCHAR(100) NOT NULL UNIQUE,
+	username VARCHAR(20) NOT NULL,
+	pass VARCHAR(20) NOT NULL,
+	fullName VARCHAR(40) NOT NULL,
+	email VARCHAR(40) NOT NULL UNIQUE,
 	PRIMARY KEY (idUser)
 )ENGINE = InnoDB;
 
 CREATE TABLE costumers (
 	idCostumer SMALLINT AUTO_INCREMENT,
-	nameCostumer VARCHAR(100) NOT NULL,
-	surname VARCHAR(100) NOT NULL,
-	imageName VARCHAR(200),
+	nameCostumer VARCHAR(20) NOT NULL,
+	surname VARCHAR(20) NOT NULL,
+	imageName VARCHAR(24),
 	idUserCreator SMALLINT,
 	idUserLastModify SMALLINT,
 	PRIMARY KEY (idCostumer),

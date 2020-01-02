@@ -111,8 +111,6 @@ function requestFormUniqueNumericField($option, $errorNumber) {
 
 function layoutDataSheetCustomer($option, $customer, $allUsers)
 {
-    //$request = requestDataSheetCustomer($option);
-
     return "<div class=\"row mt-5 mb-5\">
                 <div class=\"mx-auto w-75 p-3 text-center opacity-80\">
 
@@ -139,4 +137,44 @@ function requestDataSheetCustomer($option)
     } else {
         return "<p class=\"text-danger\">PROGRAMMING ERROR</p>";
     }
+}
+
+function getHTMLerror($option) {
+
+    if ($option == "requiredField") {
+        return "<p class=\"text-danger\">Required field</p>";
+    } else if ($option == "dataNotFound") {
+        return "<p class=\"text-danger\">Error: The data was not found</p>";
+    } else if ($option == "nameOnlyLettersSpaces") {
+        return "<p class=\"text-danger\">Wrong format. Only letters with spaces</p>";
+    } else if ($option == "min1Character") {
+        return "<p class=\"text-danger\">Minimun of lines 1</p>";
+    } else if ($option == "minID1") {
+        return "<p class=\"text-danger\">Minimun ID is 1</p>";
+    } else if ($option == "max3Characters") {
+        return "<p class=\"text-danger\">Max 3 characters</p>";
+    } else if ($option == "number300") {
+        return "<p class=\"text-danger\">Minimun of lines 1, maximun of lines 300</p>";
+    } else if ($option == "numberCharacters20") {
+        return "<p class=\"text-danger\">Max 20 characters and min 4 characters</p>";
+    } else if ($option == "numberCharacters40") {
+        return "<p class=\"text-danger\">Max 40 characters and min 4 characters</p>";
+    } else if ($option == "onlyNumbers") {
+        return "<p class=\"text-danger\">Wrong format. Only numbers without spaces</p>";
+    } else if ($option == "numbersLetters") {
+        return "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+    } else if ($option == "numbersLettersSpaces") {
+        return "<p class=\"text-danger\">Wrong format. Only numbers and letters without spaces</p>";
+    } else if ($option == "incorrectCharacters") {
+        return "<p class=\"text-danger\">Incorrect characters</p>";
+    } else if ($option == "usernameExists") {
+        return "<p class=\"text-danger\">The username already exists, please choose another</p>";
+    } else if ($option == "emailExists") {
+        return "<p class=\"text-danger\">The username already exists, please choose another</p>";
+    } else if ($option == "idExists") {
+        return "<p class=\"text-danger\">There isn´t that ID customer, choose any other</p>";
+    } else {
+        return "<p class=\"text-danger\">PROGRAMMING ERROR</p>";
+    }
+
 }

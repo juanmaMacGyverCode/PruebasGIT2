@@ -1,12 +1,8 @@
 <?php
 
 declare(strict_types=1);
-//require_once ('../controlador/controladorIndex/functions.php');
-
-//include("..\\controlador\\controladorIndex\\functions.php");
 
 use PHPUnit\Framework\TestCase;
-//use functions;
 
 final class TestEncrypt extends TestCase
 {
@@ -15,7 +11,7 @@ final class TestEncrypt extends TestCase
         $this->assertEquals(
             "<span class=\"nav-item text-white mr-sm-2\">Bienvenido AmorDeMiAlmaProfundo</span>
             <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"logout\" aria-label=\"Logout\" value=\"Logout\">",
-            showLoginRegisterLogout(encrypt("AmorDeMiAlmaProfundo", "1235@"))
+            showLoginRegisterLogout("AmorDeMiAlmaProfundo")
         );
     }
 
@@ -24,7 +20,7 @@ final class TestEncrypt extends TestCase
         $this->assertEquals(
             "<span class=\"nav-item text-white mr-sm-2\">Bienvenido Fernando</span>
             <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"logout\" aria-label=\"Logout\" value=\"Logout\">",
-            showLoginRegisterLogout(encrypt("Fernando", "1235@"))
+            showLoginRegisterLogout("Fernando")
         );
     }
 
@@ -44,7 +40,7 @@ final class TestEncrypt extends TestCase
         $this->assertNotEquals(
             "<span class=\"nav-item text-white mr-sm-2\">Bienvenido Fernando</span>
             <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"logout\" aria-label=\"Logout\" value=\"Logout\">",
-            showLoginRegisterLogout(encrypt("AmorDeMiAlmaProfundo", "1235@"))
+            showLoginRegisterLogout("AmorDeMiAlmaProfundo")
         );
     }
 
@@ -64,7 +60,7 @@ final class TestEncrypt extends TestCase
                 <input class=\"form-control mr-sm-2\" type=\"text\" name=\"passwordLogin\" placeholder=\"Password\" aria-label=\"Search\">
                 <input class=\"btn btn-outline-success my-2 my-sm-0 mr-sm-2\" type=\"submit\" name=\"login\" aria-label=\"Login\" value=\"Login\">
                 <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"registerForm\" aria-label=\"Sign in\" value=\"Sign in\">",
-            showLoginRegisterLogout(encrypt("", "1235@"))
+            showLoginRegisterLogout("")
         );
     }
 }
@@ -73,7 +69,7 @@ function showLoginRegisterLogout($user)
 {
     $showMenuLogin = "";
     if (isset($user)) {
-        $showMenuLogin = "<span class=\"nav-item text-white mr-sm-2\">Bienvenido " . decrypt($user, "1235@") . "</span>
+        $showMenuLogin = "<span class=\"nav-item text-white mr-sm-2\">Bienvenido " . $user . "</span>
             <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"logout\" aria-label=\"Logout\" value=\"Logout\">";
     } else {
         $showMenuLogin = "<input class=\"form-control mr-sm-2\" type=\"text\" name=\"usernameLogin\" placeholder=\"Username\" aria-label=\"Search\">
@@ -82,17 +78,4 @@ function showLoginRegisterLogout($user)
                 <input class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\" name=\"registerForm\" aria-label=\"Sign in\" value=\"Sign in\">";
     }
     return $showMenuLogin;
-}
-
-function encrypt($data, $key)
-{
-    $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
-    $encrypted = openssl_encrypt($data, "aes-256-cbc", $key, 0, $iv);
-    return base64_encode($encrypted . "::" . $iv);
-}
-
-function decrypt($data, $key)
-{
-    list($encrypted_data, $iv) = explode('::', base64_decode($data), 2);
-    return openssl_decrypt($encrypted_data, 'aes-256-cbc', $key, 0, $iv);
 }
